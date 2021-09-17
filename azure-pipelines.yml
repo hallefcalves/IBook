@@ -76,3 +76,4 @@ stages:
               runtimeStack: 'NODE|12.9.0'
               package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
               startUpCommand: 'npm run start'
+          - script: sudo systemctl start mongod
