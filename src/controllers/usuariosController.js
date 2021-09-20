@@ -17,24 +17,19 @@ function generateToken(params = {}) {
 router.put('/atualizar')
 
 router.post('/registrar', async (req, res) => {
-    const { nome, datadDeAniversario, enderecoUsuario, telefone1, telefone2, email, senha } = req.body;
-    
+    const { nome, dataDeAniversario, enderecoUsuario, telefone1, telefone2, email, senha } = req.body;
     try{
-
+    /*
         if(await Usuario.findOne({ email })){
             return res.status(400).send({error: 'User already exists'});
         }
-
-        const usuario = await Usuario.create(req.body);
-
-        await Promise.all(enderecoUsuarioVal.map(async enderecoUsuario => {
-            console.log("chegou aqui");
-            const end = new EnderecoUsuario({ ...enderecoUsuarioVal, usuario: usuario._id});
-            console.log(end);
+        */    
+        const usuario = await Usuario.create({nome, dataDeAniversario, telefone1, telefone2, email, senha});
+        await Promise.resolve(async enderecoUsuarios => {
+            const end = new EnderecoUsuario({ ...enderecoUsuarios, usuario: usuario._id});
             await end.save();
-            console.log("chegou aqui");
-            usuario.enderecoUsuarioVal.push(end);
-        }));
+            usuario.enderecoUsuario.push(end);
+        });
 
         return res.send({ 
             Usuario,

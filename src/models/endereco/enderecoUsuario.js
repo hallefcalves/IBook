@@ -33,10 +33,6 @@ const enderecoUsuarioSchema = new mongoose.Schema({
         ref: 'Usuario',
         require: true,
     },
-    criadoEm: {
-        type: Date,
-        default: Date.now,
-    },
 });
 
 const EnderecoUsuario = mongoose.model('EnderecoUsuario', enderecoUsuarioSchema);
