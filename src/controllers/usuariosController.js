@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 const authConfig = require('../config/auth.json')
 
 const Usuario = require('../models/usuario');
-const EnderecoUsuario = require('../models/enderecoUsuario');
+const EnderecoUsuario = require('../models/endereco/enderecoUsuario');
 
 //Podemos usar o Router para definir as rotas para o usuário
 const router = express.Router();
@@ -26,6 +26,15 @@ router.post('/registrar', async (req, res) => {
         }
 
         const usuario = await Usuario.create(req.body);
+
+        await Promise.all(enderecoUsuarioVal.map(async enderecoUsuario => {
+            console.log("chegou aqui");
+            const end = new EnderecoUsuario({ ...enderecoUsuarioVal, usuario: usuario._id});
+            console.log(end);
+            await end.save();
+            console.log("chegou aqui");
+            usuario.enderecoUsuarioVal.push(end);
+        }));
 
         return res.send({ 
             Usuario,
