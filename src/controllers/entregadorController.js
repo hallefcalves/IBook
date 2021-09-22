@@ -36,13 +36,13 @@ router.post('/auth', async (req, res) => {
 router.post('/registrar', async (req, res) => {
     
     try{
-        const { nome, dataDeAniversario, enderecoEntregador, telefone1, telefone2, email, senha } = req.body;
+        const { nome, dataDeAniversario, enderecoEntregador, meioDeTransporte, telefone1, telefone2, email, senha } = req.body;
 
         if(await Entregador.findOne({ email })){
             return res.status(400).send({error: 'User already exists'});
         }
     
-       const Entregador = await Entregador.create({nome, dataDeAniversario,telefone1,telefone2,email,senha});
+       const Entregador = await Entregador.create({nome, dataDeAniversario,meioDeTransporte, telefone1,telefone2,email,senha});
        await Promise.all(enderecoEntregador.map(async end =>{
            const enduser = new enderecoEntregador({...end, entregador: entregador._id});
            await enduser.save();
@@ -64,11 +64,13 @@ router.post('/registrar', async (req, res) => {
 
 router.put('/atualizar/:entregadorId', async (req, res) => {
     try{
-        const { nome, dataDeAniversario, enderecoEntregador, telefone1, telefone2, email, senha } = req.body;
+        const { nome, dataDeAniversario, enderecoEntregador, meioDeTransporte, telefone1, telefone2, email, senha } = req.body;
 
         const entregador = await Entregador.findByIdAndUpdate(req.params.entregadorId, { 
             nome,
             dataDeAniversario,
+            enderecoEntregador,
+            meioDeTransporte,
             telefone1,
             telefone2,
             email,
