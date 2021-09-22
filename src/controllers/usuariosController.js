@@ -17,15 +17,15 @@ function generateToken(params = {}) {
 router.post('/auth', async (req, res) => {
     const { email, senha } = req.body;
 
-    const usuario = await Usuario.findOne({email}).select('+password');
+    const usuario = await Usuario.findOne({email}).select('+senha');
 
     if(!usuario)
         return res.status(400).send({ error: 'User not found'});
 
     if(!await bcrypt.compare(senha, usuario.senha))
         return res.status(400).send({ error: 'Invalid password'});
-    
-    usuario.senha = undefined;
+
+        usuario.senha = undefined;
 
     res.send({ 
         token: generateToken({ id: usuario.id }) 

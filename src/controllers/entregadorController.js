@@ -24,7 +24,7 @@ router.post('/auth', async (req, res) => {
 
     if(!await bcrypt.compare(senha, entregador.senha))
         return res.status(400).send({ error: 'Invalid password'});
-    
+
         entregador.senha = undefined;
 
     res.send({ 
@@ -42,11 +42,11 @@ router.post('/registrar', async (req, res) => {
             return res.status(400).send({error: 'User already exists'});
         }
     
-       const Entregador = await Entregador.create({nome, dataDeAniversario,meioDeTransporte, telefone1,telefone2,email,senha});
+       const entregador = await Entregador.create({nome, dataDeAniversario,meioDeTransporte, telefone1,telefone2,email,senha});
        await Promise.all(enderecoEntregador.map(async end =>{
-           const enduser = new enderecoEntregador({...end, entregador: entregador._id});
-           await enduser.save();
-           entregador.enderecoEntregador.push(enduser);
+           const endentre = new EnderecoEntregador({...end, entregador: entregador._id});
+           await endentre.save();
+           entregador.enderecoEntregador.push(endentre);
         }));
         
         await entregador.save();
@@ -69,7 +69,6 @@ router.put('/atualizar/:entregadorId', async (req, res) => {
         const entregador = await Entregador.findByIdAndUpdate(req.params.entregadorId, { 
             nome,
             dataDeAniversario,
-            enderecoEntregador,
             meioDeTransporte,
             telefone1,
             telefone2,
@@ -79,13 +78,13 @@ router.put('/atualizar/:entregadorId', async (req, res) => {
         
          entregador.enderecoEntregador = [];
 
-        await enderecoEntregador.deleteMany({ entregador: entregador._id});
+        await EnderecoEntregador.deleteMany({ entregador: entregador._id});
         
 
         await Promise.all(enderecoEntregador.map(async end =>{
-            const enduser = new enderecoEntregador({...end, entregador: entregador._id});
-            await enduser.save();
-            entregador.enderecoEntregador.push(enduser);
+            const endentre = new EnderecoEntregador({...end, entregador: entregador._id});
+            await endentre.save();
+            entregador.enderecoEntregador.push(endentre);
         }));
 
         await entregador.save();

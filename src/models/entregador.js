@@ -6,11 +6,11 @@ const entregadorSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
-    enderecoEntregador: {
+    enderecoEntregador: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'EnderecoEntregador',
+        ref: 'EnderecoUsuario',
         require: true,
-    },
+    }],
     telefone1:{
         type: String,
         require: true,
@@ -44,7 +44,7 @@ const entregadorSchema = new mongoose.Schema({
     senha: {
         type: String,
         required: true,
-        select: false,
+        //select: false,
     },
     criadoEm: {
         type: Date,
@@ -52,7 +52,7 @@ const entregadorSchema = new mongoose.Schema({
     },
 });
 
-usuarioSchema.pre('save', async function(next) {
+entregadorSchema.pre('save', async function(next) {
     const hash = await bcrypt.hash(this.senha, 10);
     this.senha = hash;
 

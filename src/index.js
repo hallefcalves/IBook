@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 require('./controllers/usuariosController')(app);
-//require('./controllers/bibliotecaController')(app);
-//require('./controllers/entregadorController')(app);
+require('./controllers/bibliotecaController')(app);
+require('./controllers/entregadorController')(app);
 
 app.listen(3000);

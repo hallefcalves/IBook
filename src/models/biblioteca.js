@@ -10,11 +10,11 @@ const bibliotecaSchema = new mongoose.Schema({
         type: String,
         required: true,
     },    
-    enderecoBiblioteca: {
+    enderecoBiblioteca: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'EnderecoBiblioteca',
         require: true,
-    },
+    }],
     telefone1:{
         type: String,
         require: true,
@@ -36,30 +36,21 @@ const bibliotecaSchema = new mongoose.Schema({
         lowercase: true,
     },
     livrosDevolu:{
-        type: Number
+        type: Number,
+        default: 0
     },
     livrosDisp:{
-        type: Number
+        type: Number,
+        default: 0
     },
     livrosRepo:{
-        type: Number
-    },
-    password: {
-        type: String,
-        required: true,
-        select: false,
+        type: Number,
+        default: 0
     },
     CreatedAt: {
         type: Date,
         default: Date.now,
     },
-});
-
-bibliotecaSchema.pre('save', async function(next) {
-    const hash = await bcrypt.hash(this.senha, 10);
-    this.senha = hash;
-
-    next();
 });
 
 const Biblioteca = mongoose.model('Biblioteca', bibliotecaSchema);
