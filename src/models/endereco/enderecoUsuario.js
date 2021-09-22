@@ -28,7 +28,7 @@ const enderecoUsuarioSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
-    user: {
+    usuario: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Usuario',
         require: true,

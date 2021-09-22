@@ -10,11 +10,11 @@ const usuarioSchema = new mongoose.Schema({
         type: Date,
         require: true,
     },
-    enderecoUsuario: {
+    enderecoUsuario: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'EnderecoUsuario',
         require: true,
-    },
+    }],
     telefone1:{
         type: String,
         require: true,
@@ -49,7 +49,7 @@ const usuarioSchema = new mongoose.Schema({
     senha: {
         type: String,
         required: true,
-        select: false,
+        //select: false,
     },
     criadoEm: {
         type: Date,
@@ -60,7 +60,6 @@ const usuarioSchema = new mongoose.Schema({
 usuarioSchema.pre('save', async function(next) {
     const hash = await bcrypt.hash(this.senha, 10);
     this.senha = hash;
-
     next();
 });
 
