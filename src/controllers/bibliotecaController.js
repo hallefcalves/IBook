@@ -83,7 +83,7 @@ router.put('/:bibliotecaId', async (req, res) => {
     
         await biblioteca.save();
     
-        return res.send('Update Succesful');
+        return res.send( {result:'Update Succesful'});
     }
     catch (err) {
         console.log(err);
@@ -94,7 +94,7 @@ router.delete('/:bibliotecaId', async (req, res) => {
     try{
        
         await Biblioteca.findByIdAndRemove(req.params.bibliotecaId).populate('enderecoBiblioteca')
-        await enderecoBiblioteca.findOneAndRemove({entregador: req.params.bibliotecaId});
+        await EnderecoBiblioteca.findOneAndRemove({entregador: req.params.bibliotecaId});
         return res.send({log: 'Deleted Succesfully'})
  
      } catch (err) {

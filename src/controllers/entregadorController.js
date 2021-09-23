@@ -43,6 +43,7 @@ router.post('/registrar', async (req, res) => {
         }
     
        const entregador = await Entregador.create({nome, dataDeAniversario,meioDeTransporte, telefone1,telefone2,email,senha});
+       
        await Promise.all(enderecoEntregador.map(async end =>{
            const endentre = new EnderecoEntregador({...end, entregador: entregador._id});
            await endentre.save();
@@ -102,7 +103,7 @@ router.delete('/apagar/:entregadorId', async (req, res) => {
     try{
        
        await Entregador.findByIdAndRemove(req.params.entregadorId).populate('enderecoEntregador')
-       await enderecoEntregador.findOneAndRemove({entregador: req.params.entregadorId});
+       await EnderecoEntregador.findOneAndRemove({entregador: req.params.entregadorId});
        return res.send({log: 'Deleted Succesfully'})
 
     } catch (err) {
