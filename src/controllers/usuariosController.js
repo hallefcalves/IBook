@@ -25,7 +25,7 @@ router.post('/auth', async (req, res) => {
     if(!await bcrypt.compare(senha, usuario.senha))
         return res.status(400).send({ error: 'Invalid password'});
 
-        usuario.senha = undefined;
+    usuario.senha = undefined;
 
     res.send({ 
         token: generateToken({ id: usuario.id }) 
