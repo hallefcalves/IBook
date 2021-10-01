@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 
 const authConfig = require('../config/auth.json')
 
-const Entregador = require('../models/rntregador.js');
+const Entregador = require('../models/entregador.js');
 const EnderecoEntregador = require('../models/endereco/enderecoEntregador.js');
 
 //Podemos usar o Router para definir as rotas para o entregador

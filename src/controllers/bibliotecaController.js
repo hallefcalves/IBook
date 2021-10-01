@@ -1,6 +1,6 @@
 const express = require('express');
 
-const Biblioteca = require('../models/Biblioteca.js');
+const Biblioteca = require('../models/biblioteca.js');
 
 const Usuario = require('../models/usuario.js');
 const EnderecoBiblioteca = require('../models/endereco/enderecoBiblioteca.js');
