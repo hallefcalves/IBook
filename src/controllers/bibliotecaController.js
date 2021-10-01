@@ -1,9 +1,9 @@
 const express = require('express');
 
-const Biblioteca = require('../models/Biblioteca');
+const Biblioteca = require('../models/Biblioteca.js');
 
-const Usuario = require('../models/Biblioteca');
-const EnderecoBiblioteca = require('../models/endereco/enderecoBiblioteca');
+const Usuario = require('../models/usuario.js');
+const EnderecoBiblioteca = require('../models/endereco/enderecoBiblioteca.js');
 
 //Podemos usar o Router para definir as rotas para o usuário
 const router = express.Router();

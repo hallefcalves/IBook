@@ -4,8 +4,8 @@ const jwt = require('jsonwebtoken')
 
 const authConfig = require('../config/auth.json')
 
-const Usuario = require('../models/Usuario');
-const EnderecoUsuario = require('../models/endereco/enderecoUsuario');
+const Usuario = require('../models/usuario.js');
+const EnderecoUsuario = require('../models/endereco/enderecoUsuario.js');
 
 //Podemos usar o Router para definir as rotas para o usuário
 const router = express.Router();
