@@ -11,6 +11,8 @@ app.use(bodyParser.urlencoded({ extended: false}));
 
 //Método do Express novo
 
+const Path = require('path');
+dotenv.config({path: Path.join(__dirname, '../config/.env')})
 const express = require("express");
 
 const app = express();
@@ -23,4 +25,4 @@ require('./controllers/usuariosController')(app);
 require('./controllers/bibliotecaController')(app);
 require('./controllers/entregadorController')(app);
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000)
