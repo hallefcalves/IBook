@@ -10,10 +10,11 @@ app.use(bodyParser.urlencoded({ extended: false}));
 */
 
 //Método do Express novo
-
+const dotenv = require('dotenv')
 const Path = require('path');
-dotenv.config({path: Path.join(__dirname, '../config/.env')})
 const express = require("express");
+
+dotenv.config({path: Path.join(__dirname, '../config/.env')})
 
 const app = express();
 

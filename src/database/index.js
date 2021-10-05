@@ -3,7 +3,6 @@ const dotenv = require('dotenv')
 const mongoose = require('mongoose');
 const Path = require('path');
 const caminho = Path.join(__dirname, '../config/.env')
-console.log(caminho);
 dotenv.config({path: Path.join(__dirname, '../config/.env')})
 
 mongoose.connect(process.env.CONNECTIONSTRING||"");
