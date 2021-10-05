@@ -73,7 +73,7 @@ stages:
               azureSubscription: $(azureSubscription)
               appType: webAppLinux
               appName: IBook-dev
-              runtimeStack: 'NODE|12.9.0'
+              runtimeStack: 'NODE|14.18.0'
               package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
               startUpCommand: 'npm start'
           - script: sudo systemctl start mongod
