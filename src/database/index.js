@@ -1,8 +1,11 @@
 const dotenv = require('dotenv')
 //Cria conexão com o banco de dados MongoDB
 const mongoose = require('mongoose');
-import Path from 'path';
-dotenv.config({path: Path.join(__dirname, '/config/.env')})
+const Path = require('path');
+const caminho = Path.join(__dirname, '../config/.env')
+console.log(caminho);
+dotenv.config({path: Path.join(__dirname, '../config/.env')})
+
 mongoose.connect(process.env.CONNECTIONSTRING||"");
 mongoose.Promise = global.Promise;
 
