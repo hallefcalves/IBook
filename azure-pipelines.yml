@@ -32,7 +32,7 @@ stages:
     steps:
     - task: NodeTool@0
       inputs:
-        versionSpec: '16.6.1'
+        versionSpec: '14.17.0'
       displayName: 'Install Node.js'
 # npm run test --if-present
     - script: |
@@ -73,7 +73,6 @@ stages:
               azureSubscription: $(azureSubscription)
               appType: webAppLinux
               appName: IBook-dev
-              runtimeStack: 'NODE|16.6.1'
+              runtimeStack: 'NODE|14.17.0'
               package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
               startUpCommand: 'npm start'
-          - script: sudo systemctl start mongod
