@@ -32,7 +32,7 @@ stages:
     steps:
     - task: NodeTool@0
       inputs:
-        versionSpec: '14.17.0'
+        versionSpec: '16.1.0'
       displayName: 'Install Node.js'
 # npm run test --if-present
     - script: |
@@ -73,6 +73,6 @@ stages:
               azureSubscription: $(azureSubscription)
               appType: webAppLinux
               appName: IBook-dev
-              runtimeStack: 'NODE|14.17.0'
+              runtimeStack: 'NODE|16.1.0'
               package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
               startUpCommand: 'npm start'
