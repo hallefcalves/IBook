@@ -13,6 +13,11 @@ const livroSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
+    biblioteca: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Biblioteca',
+        require: true,
+    },
     emprestado:{
         type: Boolean,
         default: false
@@ -25,6 +30,7 @@ const livroSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+
 });
 
 const Livro = mongoose.model('Livro', livroSchema);
