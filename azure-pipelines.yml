@@ -12,7 +12,7 @@ variables:
   azureSubscription: '27c6eb36-ab1d-461b-a737-c2a52bcc376b'
 
   # Web app name
-  webAppName: ''
+  webAppName: 'Ibook-dev'
 
   # Environment name
   environmentName: 'Ibook-dev'
