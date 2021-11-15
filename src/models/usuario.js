@@ -49,7 +49,7 @@ const usuarioSchema = new mongoose.Schema({
     senha: {
         type: String,
         required: true,
-        //select: false,
+        select: false,
     },
     criadoEm: {
         type: Date,
