@@ -4,24 +4,24 @@ const bcrypt = require('bcryptjs');
 const usuarioSchema = new mongoose.Schema({
     nome: {
         type: String,
-        require: true,
+        //require: true,
     },
     dataDeAniversario: {
         type: Date,
-        require: true,
+        //require: true,
     },
     enderecoUsuario: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'EnderecoUsuario',
-        require: true,
+        //require: true,
     }],
     telefone1:{
         type: String,
-        require: true,
+        //require: true,
     },
     telefone2:{
         type: String,
-        require: false,
+        //require: false,
     },
     email: {
         type: String,
