@@ -15,7 +15,7 @@ variables:
   webAppName: 'Ibook-dev'
 
   # Environment name
-  environmentName: 'Ibook-dev'
+  environmentName: 'Ibook'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
