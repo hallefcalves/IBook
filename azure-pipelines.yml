@@ -1,13 +1,13 @@
 # Node.js Express Web App to Linux on Azure
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'Azure for Students (f8fe21e9-574f-455e-b70c-6cf3e24b8f64)'
-    appType: 'webAppLinux'
-    WebAppName: 'ibook-back'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
-    RuntimeStack: 'NODE|12-lts'
-    StartupCommand: 'npm start'
+#- task: AzureRmWebAppDeployment@4
+#  inputs:
+#    ConnectionType: 'AzureRM'
+#    azureSubscription: 'Azure for Students (f8fe21e9-574f-455e-b70c-6cf3e24b8f64)'
+#    appType: 'webAppLinux'
+#    WebAppName: 'ibook-back'
+#    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+#    RuntimeStack: 'NODE|12-lts'
+#    StartupCommand: 'npm start'
 # Build a Node.js Express app and deploy it to Azure as a Linux web app.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
@@ -18,10 +18,10 @@ trigger:
 variables:
 
   # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: '27c6eb36-ab1d-461b-a737-c2a52bcc376b'
+  azureSubscription: 'Azure for Students (f8fe21e9-574f-455e-b70c-6cf3e24b8f64)'
 
   # Web app name
-  webAppName: ''
+  webAppName: 'ibook-back'
 
   # Environment name
   environmentName: 'Ibook-dev'
