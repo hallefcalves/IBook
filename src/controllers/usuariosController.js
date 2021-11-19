@@ -14,6 +14,14 @@ function generateToken(params = {}) {
     return jwt.sign(params, authConfig.secret);
 }
 
+router.get('/:usuarioId', async (req, res)=>{
+    try{
+        const usuario = await Usuario.findById(req.params.usuarioId).populate('EnderecoUsuario');
+        return res.send({ usuario })
+    } catch (err) {
+        return res.status(400).send({ error: 'Error loading' });
+    }
+});
 router.post('/auth', async (req, res) => {
     const { email, senha } = req.body;
 
