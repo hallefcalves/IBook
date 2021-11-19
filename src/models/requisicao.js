@@ -2,15 +2,18 @@ const mongoose = require('../database');
 
 const requisicaoSchema = new mongoose.Schema({
     biblioteca: {
-        type: mongoose.types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Biblioteca',
         require: true,
     },
     usuario: {
-        type: mongoose.types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Usuario',
         require: true,
     },
     livro: {
-        type: mongoose.types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Livro',
         require: true,
     },
     dataRequisicao: {

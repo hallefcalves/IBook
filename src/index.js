@@ -25,5 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 require('./controllers/usuariosController')(app);
 require('./controllers/bibliotecaController')(app);
 require('./controllers/entregadorController')(app);
+require('./controllers/livroController')(app);
+require('./controllers/requisicoesController')(app);
 
 app.listen(process.env.PORT || 3000)
