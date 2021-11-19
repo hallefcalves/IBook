@@ -18,7 +18,9 @@ const app = express();
 
 app.use(cors({
     origin: 'https://ibook-front.herokuapp.com'
-  }));
+}));
+
+app.options('*', cors());
 
 app.use(express.json());
 
