@@ -28,7 +28,8 @@ router.post('/auth', async (req, res) => {
     usuario.senha = undefined;
 
     res.send({ 
-        token: generateToken({ id: usuario.id }) 
+        token: generateToken({ id: usuario.id }),
+        userid: usuario.id, 
     });
 });
 

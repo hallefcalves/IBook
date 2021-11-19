@@ -57,7 +57,7 @@ router.post('/ask', async (req, res) => {
     }
 });
 
-router.post('/renov', async(req, res) => {
+router.put('/renov', async(req, res) => {
     try{
         const livro = await Livro.findOne({_id: req.body.livroId});
         if(livro.reservado == false){

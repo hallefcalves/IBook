@@ -1,4 +1,4 @@
 {
-    "appService.defaultWebAppToDeploy": "/subscriptions/f8fe21e9-574f-455e-b70c-6cf3e24b8f64/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/IBook-dev",
-    "appService.deploySubpath": "."
+    "appService.deploySubpath": ".",
+    "appService.defaultWebAppToDeploy": "/subscriptions/f8fe21e9-574f-455e-b70c-6cf3e24b8f64/resourceGroups/ibook-dev_group/providers/Microsoft.Web/sites/ibook-back"
 }
