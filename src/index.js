@@ -16,7 +16,7 @@ dotenv.config({path: Path.join(__dirname, '../config/.env')})
 
 const app = express();
 
-app.use(cors({origin: "*"}));
+app.use(cors({origin: '*'}));
 
 app.use(express.json());
 
