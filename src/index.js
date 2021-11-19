@@ -16,7 +16,9 @@ dotenv.config({path: Path.join(__dirname, '../config/.env')})
 
 const app = express();
 
-app.use(cors({origin: '*'}));
+app.use(cors());
+
+app.options('*', cors());
 
 app.use(express.json());
 
@@ -25,7 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 require('./controllers/usuariosController')(app);
 require('./controllers/bibliotecaController')(app);
 require('./controllers/entregadorController')(app);
-require('./controllers/livroController')(app);
+require('./controllers/livrosController')(app);
 require('./controllers/requisicoesController')(app);
 
 app.listen(process.env.PORT || 3000)
