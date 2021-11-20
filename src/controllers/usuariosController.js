@@ -86,7 +86,9 @@ router.put('/atualizar/:usuarioId', async (req, res) => {
             senha
          });
         
-        usuario.enderecoUsuario = [];
+        if(usuario.enderecoUsuario != null){
+            usuario.enderecoUsuario = [];
+        }
 
         await EnderecoUsuario.deleteMany({ usuario: usuario._id});
         
