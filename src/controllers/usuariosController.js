@@ -14,11 +14,12 @@ function generateToken(params = {}) {
     return jwt.sign(params, authConfig.secret);
 }
 
-router.get('/:usuarioId', async (req, res)=>{
-    try{
-        const usuario = await Usuario.findById(req.params.usuarioId).populate('EnderecoUsuario');
-        return res.send({ usuario })
-    } catch (err) {
+router.get('/:usuarioId', async(req, res) => {
+    try {
+        const usuario = await Usuario.findOne(req.usuarioId).select('+senha').populate('enderecoUsuario');
+        return res.status(200).send({ usuario });
+    }
+    catch (err) {
         return res.status(400).send({ error: 'Error loading' });
     }
 });
@@ -50,17 +51,17 @@ router.post('/registrar', async (req, res) => {
         if(await Usuario.findOne({ email })){
             return res.status(400).send({error: 'User already exists'});
         }
-    
-       const usuario = await Usuario.create({nome, dataDeAniversario,telefone1,telefone2,email,senha});
-       await Promise.all(enderecoUsuario.map(async end =>{
-           const enduser = new EnderecoUsuario({...end, usuario: usuario._id});
-           await enduser.save();
-           usuario.enderecoUsuario.push(enduser);
-        }));
-        
+        const usuario = await Usuario.create({nome, dataDeAniversario,telefone1,telefone2,email,senha});
+        if(enderecoUsuario != null){
+            await Promise.all(enderecoUsuario.map(async end =>{
+            const enduser = new EnderecoUsuario({...end, usuario: usuario._id});
+            await enduser.save();
+            usuario.enderecoUsuario.push(enduser);
+            }));
+        }
         await usuario.save();
 
-        return res.send({
+        return res.status(200).send({
             usuario,
             token: generateToken({ id: usuario.id }), 
         });
