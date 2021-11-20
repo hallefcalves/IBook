@@ -99,9 +99,7 @@ router.put('/atualizar/:usuarioId', async (req, res) => {
             await enduser.save();
             usuario.enderecoUsuario.push(enduser);
         }));
-        console.log('Bateu');
         await usuario.save();
-        console.log('Bateu');
         return res.send({
             token: generateToken({ id: usuario.id }), 
         });
