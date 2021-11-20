@@ -16,7 +16,8 @@ function generateToken(params = {}) {
 
 router.get('/:usuarioId', async(req, res) => {
     try {
-        const usuario = await Usuario.findOne(req.usuarioId).select('+senha').populate('enderecoUsuario');
+        console.log(req.params.usuarioId);
+        const usuario = await Usuario.findById(req.params.usuarioId).populate('enderecoUsuario').select('+senha');
         return res.status(200).send({ usuario });
     }
     catch (err) {
@@ -74,32 +75,35 @@ router.post('/registrar', async (req, res) => {
 
 router.put('/atualizar/:usuarioId', async (req, res) => {
     try{
-        const { nome, dataDeAniversario, enderecoUsuario, telefone1, telefone2, email, senha } = req.body;
-
+        const { nome, dataDeAniversario, enderecoUsuario, telefone1, telefone2, email } = req.body;
+        console.log(req.params.usuarioId);
         const usuario = await Usuario.findByIdAndUpdate(req.params.usuarioId, { 
             nome,
             dataDeAniversario,
             telefone1,
             telefone2,
             email,
-            senha
-         });
-        
-        usuario.enderecoUsuario = [];
+        });
+        if(usuario == null){
+            return res.status(400).send({error: 'User not found'});
+        }
+        console.log(usuario);
+        if(usuario.enderecoUsuario != null){
+            usuario.enderecoUsuario = [];
+        }
 
-        await EnderecoUsuario.deleteMany({ usuario: usuario._id});
-        
-
+        if(enderecoUsuario != null){
+            await EnderecoUsuario.deleteMany({ usuario: usuario._id});
+        }
         await Promise.all(enderecoUsuario.map(async end =>{
             const enduser = new EnderecoUsuario({...end, usuario: usuario._id});
             await enduser.save();
             usuario.enderecoUsuario.push(enduser);
         }));
-
+        console.log('Bateu');
         await usuario.save();
-
+        console.log('Bateu');
         return res.send({
-
             token: generateToken({ id: usuario.id }), 
         });
     }

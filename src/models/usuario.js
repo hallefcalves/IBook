@@ -31,6 +31,7 @@ const usuarioSchema = new mongoose.Schema({
     },
     pontualidadeDevolucao: {
         type: Number,
+        default: 0,
     },
     blocked: {
         type: Boolean,
@@ -58,9 +59,12 @@ const usuarioSchema = new mongoose.Schema({
 });
 
 usuarioSchema.pre('save', async function(next) {
-    const hash = await bcrypt.hash(this.senha, 10);
-    this.senha = hash;
+    if(this.senha != undefined) {
+        const hash = await bcrypt.hash(this.senha, 10);
+        this.senha = hash;
+    }
     next();
+    
 });
 
 const Usuario = mongoose.model('Usuario', usuarioSchema);
