@@ -16,13 +16,14 @@ function generateToken(params = {}) {
 
 router.get('/:usuarioId', async(req, res) => {
     try {
-        const usuario = await Usuario.findOne(req.usuarioId).select('+senha').populate('enderecoUsuario');
+        const usuario = await Usuario.findById(req.params.usuarioId).populate('enderecoUsuario').select('+senha');
         return res.status(200).send({ usuario });
     }
     catch (err) {
         return res.status(400).send({ error: 'Error loading' });
     }
 });
+
 router.post('/auth', async (req, res) => {
     const { email, senha } = req.body;
 
