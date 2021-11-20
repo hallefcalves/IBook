@@ -16,7 +16,6 @@ function generateToken(params = {}) {
 
 router.get('/:usuarioId', async(req, res) => {
     try {
-        console.log(req.params.usuarioId);
         const usuario = await Usuario.findById(req.params.usuarioId).populate('enderecoUsuario').select('+senha');
         return res.status(200).send({ usuario });
     }
@@ -24,6 +23,7 @@ router.get('/:usuarioId', async(req, res) => {
         return res.status(400).send({ error: 'Error loading' });
     }
 });
+
 router.post('/auth', async (req, res) => {
     const { email, senha } = req.body;
 
@@ -83,14 +83,15 @@ router.put('/atualizar/:usuarioId', async (req, res) => {
             telefone1,
             telefone2,
             email,
-        });
-        if(usuario == null){
-            return res.status(400).send({error: 'User not found'});
-        }
-        console.log(usuario);
+            senha
+         });
+        
         if(usuario.enderecoUsuario != null){
             usuario.enderecoUsuario = [];
         }
+
+        await EnderecoUsuario.deleteMany({ usuario: usuario._id});
+        
 
         if(enderecoUsuario != null){
             await EnderecoUsuario.deleteMany({ usuario: usuario._id});
