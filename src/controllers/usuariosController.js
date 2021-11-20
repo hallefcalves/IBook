@@ -75,15 +75,13 @@ router.post('/registrar', async (req, res) => {
 
 router.put('/atualizar/:usuarioId', async (req, res) => {
     try{
-        const { nome, dataDeAniversario, enderecoUsuario, telefone1, telefone2, email } = req.body;
+        const { nome, dataDeAniversario, enderecoUsuario, telefone1, telefone2 } = req.body;
         console.log(req.params.usuarioId);
         const usuario = await Usuario.findByIdAndUpdate(req.params.usuarioId, { 
             nome,
             dataDeAniversario,
             telefone1,
             telefone2,
-            email,
-            senha
          });
         
         if(usuario.enderecoUsuario != null){
