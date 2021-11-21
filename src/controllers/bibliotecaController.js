@@ -22,9 +22,9 @@ router.get('/', async(req, res) => {
 
 router.get('/:bibliotecaId', async (req, res)=>{
     try{
-        const bibliotecas = await Biblioteca.findById(req.params.bibliotecaId).populate('enderecoBiblioteca').select('+senha');
+        const biblioteca = await Biblioteca.findById(req.params.bibliotecaId).populate('enderecoBiblioteca').select('+senha');
 
-        return res.send({ bibliotecas })
+        return res.send({ biblioteca })
     } catch (err) {
         return res.status(400).send({ error: 'Error loading' });
     }

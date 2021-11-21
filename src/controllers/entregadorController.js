@@ -29,6 +29,7 @@ router.post('/auth', async (req, res) => {
 
     res.send({ 
         token: generateToken({ id: entregador.id }) 
+        
     });
 });
 
