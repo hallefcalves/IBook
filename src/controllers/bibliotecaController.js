@@ -61,11 +61,13 @@ router.post('/registrar', async (req, res) => {
     
        const biblioteca = await Biblioteca.create({nome, nomeResponsavel, telefone1, telefone2, email, emailResponsavel, senha});
        
-       await Promise.all(enderecoBiblioteca.map(async end =>{
-           const endentre = new EnderecoBiblioteca({...end, biblioteca: biblioteca._id});
-           await endentre.save();
-           biblioteca.enderecoBiblioteca.push(endentre);
-        }));
+       if(enderecoBiblioteca != null){
+            await Promise.all(enderecoBiblioteca.map(async end =>{
+                const endentre = new EnderecoBiblioteca({...end, biblioteca: biblioteca._id});
+                await endentre.save();
+                biblioteca.enderecoBiblioteca.push(endentre);
+            }));
+        }
         
         await biblioteca.save();
 
