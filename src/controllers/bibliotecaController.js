@@ -1,16 +1,18 @@
 const express = require('express');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken')
+
+const authConfig = require('../config/auth.json')
 
 const Biblioteca = require('../models/biblioteca.js');
 
-const Usuario = require('../models/usuario.js');
 const EnderecoBiblioteca = require('../models/endereco/enderecoBiblioteca.js');
 
-//Podemos usar o Router para definir as rotas para o usuário
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', async(req, res) => {
     try{
-        const bibliotecas = await Biblioteca.find()
+        const bibliotecas = await Biblioteca.find().populate('enderecoBiblioteca')
 
         return res.send({ bibliotecas })
     } catch (err) {
@@ -20,7 +22,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:bibliotecaId', async (req, res)=>{
     try{
-        const bibliotecas = await Biblioteca.findById(req.params.bibliotecaId)
+        const bibliotecas = await Biblioteca.findById(req.params.bibliotecaId).populate('enderecoBiblioteca').select('+senha');
 
         return res.send({ bibliotecas })
     } catch (err) {
@@ -28,17 +30,36 @@ router.get('/:bibliotecaId', async (req, res)=>{
     }
 });
 
+router.post('/auth', async (req, res) => {
+    const { email, senha } = req.body;
+
+    const biblioteca = await Biblioteca.findOne({email}).select('+senha');
+
+    if(!biblioteca)
+        return res.status(400).send({ error: 'Biblioteca not found'});
+
+    if(!await bcrypt.compare(senha, biblioteca.senha))
+        return res.status(400).send({ error: 'Invalid password'});
+
+    biblioteca.senha = undefined;
+
+    res.send({ 
+        token: generateToken({ id: biblioteca.id }),
+        bibliotecaid: biblioteca.id, 
+    });
+});
+
 router.post('/', async (req, res) => {
     
     try{
     
-        const { nome, nomeResponsavel, enderecoBiblioteca, telefone1, telefone2, email, emailResponsavel } = req.body;
+        const { nome, nomeResponsavel, enderecoBiblioteca, telefone1, telefone2, email, emailResponsavel, senha } = req.body;
 
         if(await Biblioteca.findOne({ nome })){
             return res.status(400).send({error: 'Item already exists'});
         }
     
-       const biblioteca = await Biblioteca.create({nome, nomeResponsavel, telefone1, telefone2, email, emailResponsavel});
+       const biblioteca = await Biblioteca.create({nome, nomeResponsavel, telefone1, telefone2, email, emailResponsavel, senha});
        
        await Promise.all(enderecoBiblioteca.map(async end =>{
            const endentre = new EnderecoBiblioteca({...end, biblioteca: biblioteca._id});
@@ -67,7 +88,6 @@ router.put('/:bibliotecaId', async (req, res) => {
             nomeResponsavel,
             telefone1,
             telefone2,
-            email,
             emailResponsavel
             });
             

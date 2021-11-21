@@ -7,7 +7,6 @@ const authConfig = require('../config/auth.json')
 const Usuario = require('../models/usuario.js');
 const EnderecoUsuario = require('../models/endereco/enderecoUsuario.js');
 
-//Podemos usar o Router para definir as rotas para o usuário
 const router = express.Router();
 
 function generateToken(params = {}) {

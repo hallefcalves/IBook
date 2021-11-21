@@ -29,6 +29,10 @@ const bibliotecaSchema = new mongoose.Schema({
         require: true,
         lowercase: true,
     },
+    senha: {
+        type: String,
+        required: true,
+    },
     emailResponsavel: {
         type: String,
         unique: true,
@@ -51,6 +55,15 @@ const bibliotecaSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+});
+
+bibliotecaSchema.pre('save', async function(next) {
+    if(this.senha != undefined) {
+        const hash = await bcrypt.hash(this.senha, 10);
+        this.senha = hash;
+    }
+    next();
+    
 });
 
 const Biblioteca = mongoose.model('Biblioteca', bibliotecaSchema);

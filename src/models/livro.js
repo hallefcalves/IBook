@@ -29,19 +29,24 @@ const livroSchema = new mongoose.Schema({
     usuarioAtual:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Usuario',
+        default: null,
     },
     usuarioReservado:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Usuario',
+        default: null,
     },
     dataEmprestimo:{
         type: Date,
+        default: null,
     },
     dataReserva:{
         type: Date,
+        default: null,
     },
     dataDevolucao:{
         type: Date,
+        default: null,
     },
     criadoEm: {
         type: Date,
