@@ -49,7 +49,7 @@ router.post('/auth', async (req, res) => {
     });
 });
 
-router.post('/', async (req, res) => {
+router.post('/registrar', async (req, res) => {
     
     try{
     
@@ -79,7 +79,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.put('/:bibliotecaId', async (req, res) => {
+router.put('/atualizar/:bibliotecaId', async (req, res) => {
     try{
         const { nome, nomeResponsavel, enderecoBiblioteca, telefone1, telefone2, email, emailResponsavel } = req.body;
     
