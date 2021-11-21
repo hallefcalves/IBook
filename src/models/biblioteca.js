@@ -4,24 +4,24 @@ const bcrypt = require('bcryptjs');
 const bibliotecaSchema = new mongoose.Schema({
     nome: {
         type: String,
-        required: true,
+        //required: true,
     },
     nomeResponsavel:{
         type: String,
-        required: true,
+        //required: true,
     },    
     enderecoBiblioteca: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'EnderecoBiblioteca',
-        require: true,
+        //require: true,
     }],
     telefone1:{
         type: String,
-        require: true,
+        //require: true,
     },
     telefone2:{
         type: String,
-        require: false,
+        //require: false,
     },
     email: {
         type: String,
@@ -35,8 +35,8 @@ const bibliotecaSchema = new mongoose.Schema({
     },
     emailResponsavel: {
         type: String,
-        unique: true,
-        required: true,
+        //unique: true,
+        //required: true,
         lowercase: true,
     },
     livrosDevolu:{

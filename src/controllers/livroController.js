@@ -17,13 +17,12 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:livroId', async (req, res)=>{
+router.get('/:bibliotecaId', async (req, res)=>{
     try{
-        const livros = await livro.findById(req.params.livroId)
-
+        const livros = await livro.find({biblioteca: req.params.bibliotecaId})
         return res.send({ livros })
     } catch (err) {
-        return res.status(400).send({ error: 'Error loading' });
+        return res.status(400).send({ error: 'Erro ao criar livro' });
     }
 });
 
