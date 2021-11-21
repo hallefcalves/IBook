@@ -10,6 +10,10 @@ const EnderecoBiblioteca = require('../models/endereco/enderecoBiblioteca.js');
 
 const router = express.Router();
 
+function generateToken(params = {}) {
+    return jwt.sign(params, authConfig.secret);
+}
+
 router.get('/', async(req, res) => {
     try{
         const bibliotecas = await Biblioteca.find().populate('enderecoBiblioteca')
@@ -73,6 +77,7 @@ router.post('/registrar', async (req, res) => {
 
         return res.send({
             biblioteca,
+            token: generateToken({ id: biblioteca.id }),
         });
     }
     catch (err) {
@@ -105,7 +110,9 @@ router.put('/atualizar/:bibliotecaId', async (req, res) => {
     
         await biblioteca.save();
     
-        return res.send( {result:'Update Succesful'});
+        return res.send( {
+            result:'Update Succesful',
+            token: generateToken({ id: biblioteca.id }),});
     }
     catch (err) {
         console.log(err);

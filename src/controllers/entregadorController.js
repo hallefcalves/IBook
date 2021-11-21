@@ -14,6 +14,16 @@ function generateToken(params = {}) {
     return jwt.sign(params, authConfig.secret);
 }
 
+router.get('/:entregadorId', async (req, res)=>{
+    try{
+        const entregador = await Entregador.findById(req.params.entregadorId).populate('enderecoEntregador').select('+senha');
+
+        return res.send({ entregador })
+    } catch (err) {
+        return res.status(400).send({ error: 'Error loading' });
+    }
+});
+
 router.post('/auth', async (req, res) => {
     const { email, senha } = req.body;
 
@@ -28,8 +38,8 @@ router.post('/auth', async (req, res) => {
     entregador.senha = undefined;
 
     res.send({ 
-        token: generateToken({ id: entregador.id }) 
-        
+        token: generateToken({ id: entregador.id }),
+        entregadorid: entregador.id
     });
 });
 
@@ -45,11 +55,13 @@ router.post('/registrar', async (req, res) => {
     
        const entregador = await Entregador.create({nome, dataDeAniversario,meioDeTransporte, telefone1,telefone2,email,senha});
        
-       await Promise.all(enderecoEntregador.map(async end =>{
-           const endentre = new EnderecoEntregador({...end, entregador: entregador._id});
-           await endentre.save();
-           entregador.enderecoEntregador.push(endentre);
-        }));
+       if(enderecoEntregador != null){
+            await Promise.all(enderecoEntregador.map(async end =>{
+                const endentre = new EnderecoEntregador({...end, entregador: entregador._id});
+                await endentre.save();
+                entregador.enderecoEntregador.push(endentre);
+            }));
+        };
         
         await entregador.save();
 
@@ -74,8 +86,6 @@ router.put('/atualizar/:entregadorId', async (req, res) => {
             meioDeTransporte,
             telefone1,
             telefone2,
-            email,
-            senha
          });
         
          entregador.enderecoEntregador = [];
