@@ -35,7 +35,7 @@ router.post('/registrar', async (req, res) => {
         await livro.save();
 
         return res.send({
-            livro,
+            _id: livro.id
         });
     }
     catch (err) {

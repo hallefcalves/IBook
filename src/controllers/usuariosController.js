@@ -62,7 +62,7 @@ router.post('/registrar', async (req, res) => {
         await usuario.save();
 
         return res.status(200).send({
-            usuario,
+            _id: usuario.id,
             token: generateToken({ id: usuario.id }), 
         });
     }

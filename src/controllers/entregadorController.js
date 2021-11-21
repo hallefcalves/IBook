@@ -66,7 +66,7 @@ router.post('/registrar', async (req, res) => {
         await entregador.save();
 
         return res.send({
-            entregador,
+            _id: entregador.id,
             token: generateToken({ id: entregador.id }), 
         });
     }

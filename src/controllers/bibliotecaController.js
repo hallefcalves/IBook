@@ -76,7 +76,7 @@ router.post('/registrar', async (req, res) => {
         await biblioteca.save();
 
         return res.send({
-            biblioteca,
+            _id: biblioteca.id,
             token: generateToken({ id: biblioteca.id }),
         });
     }
