@@ -35,7 +35,6 @@ const bibliotecaSchema = new mongoose.Schema({
     },
     emailResponsavel: {
         type: String,
-        //unique: true,
         //required: true,
         lowercase: true,
     },

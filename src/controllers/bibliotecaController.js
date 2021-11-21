@@ -55,7 +55,7 @@ router.post('/registrar', async (req, res) => {
     
         const { nome, nomeResponsavel, enderecoBiblioteca, telefone1, telefone2, email, emailResponsavel, senha } = req.body;
 
-        if(await Biblioteca.findOne({ nome })){
+        if(await Biblioteca.findOne({ email })){
             return res.status(400).send({error: 'Item already exists'});
         }
     
