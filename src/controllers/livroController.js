@@ -27,7 +27,7 @@ router.get('/:livroId', async (req, res)=>{
     }
 });
 
-router.post('/', async (req, res) => {
+router.post('/registrar', async (req, res) => {
     
     try{
 
@@ -45,7 +45,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.put('/:livroId', async (req, res) => {
+router.put('/atualizar/:livroId', async (req, res) => {
     try{
         const livro = await livro.findByIdAndUpdate(req.params.livroId, req.body);
     
@@ -58,7 +58,7 @@ router.put('/:livroId', async (req, res) => {
         return res.status(400).send({ error: 'Update failed'});
 }});
 
-router.delete('/:livroId', async (req, res) => {
+router.delete('/apagar/:livroId', async (req, res) => {
     try{
        
         await livro.findByIdAndRemove(req.params.livroId)
