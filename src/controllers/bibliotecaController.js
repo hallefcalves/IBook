@@ -36,7 +36,7 @@ router.get('/:bibliotecaId', async (req, res)=>{
 
 router.post('/auth', async (req, res) => {
     const { email, senha } = req.body;
-
+    console.log(senha);
     const biblioteca = await Biblioteca.findOne({email}).select('+senha');
 
     if(!biblioteca)
