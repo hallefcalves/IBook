@@ -28,12 +28,12 @@ router.post('/auth', async (req, res) => {
 
     const usuario = await Usuario.findOne({email}).select('+senha');
 
-    if(!usuario)
+    if(usuario == null){
         return res.status(400).send({ error: 'User not found'});
-
-    if(!await bcrypt.compare(senha, usuario.senha))
+    }
+    if(await bcrypt.compare(senha, usuario.senha)){
         return res.status(400).send({ error: 'Invalid password'});
-
+    }
     usuario.senha = undefined;
 
     res.send({ 

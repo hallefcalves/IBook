@@ -38,12 +38,16 @@ router.post('/auth', async (req, res) => {
     const { email, senha } = req.body;
     console.log(senha);
     const biblioteca = await Biblioteca.findOne({email}).select('+senha');
+    
+    console.log(biblioteca);
 
-    if(!biblioteca)
+    if(biblioteca == null){
         return res.status(400).send({ error: 'Biblioteca not found'});
+    }
 
-    if(!await bcrypt.compare(senha, biblioteca.senha))
+    if(await bcrypt.compare(senha, biblioteca.senha)){
         return res.status(400).send({ error: 'Invalid password'});
+    }
 
     biblioteca.senha = undefined;
 
@@ -88,7 +92,7 @@ router.post('/registrar', async (req, res) => {
 
 router.put('/atualizar/:bibliotecaId', async (req, res) => {
     try{
-        const { nome, nomeResponsavel, enderecoBiblioteca, telefone1, telefone2, email, emailResponsavel } = req.body;
+        const { nome, nomeResponsavel, enderecoBiblioteca, telefone1, telefone2, emailResponsavel } = req.body;
     
         const biblioteca = await Biblioteca.findByIdAndUpdate(req.params.bibliotecaId, { 
             nome,
